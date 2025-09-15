@@ -1,0 +1,158 @@
+<!--
+    *   @description      Página de inicio de la Unidad Académica Río Turbio de la UNPA.
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNPA | Unidad Académica Río Turbio</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- El atributo 'defer' en la etiqueta script asegura que el HTML se procese completamente 
+         antes de que el navegador intente ejecutar el JavaScript. Es una buena práctica para 
+         mejorar la velocidad de carga de la página. -->
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <!-- =================================================================
+    INICIO DEL ENCABEZADO (HEADER)
+    ================================================================== -->
+    <header>
+        <div id="logo-uart">
+            <img src="img/logo-uart.png" alt="Logo oficial de la Unidad Académica Río Turbio - UNPA">
+            <h1>UNPA | Unidad Académica <br> <span>Río Turbio</span></h1>
+        </div>
+        <nav id="menu-principal">
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li>
+                    <!-- Se utiliza una etiqueta <span> para el ícono de flecha. 
+                         Esto permite darle un estilo específico (CSS) o manipularla (JS) 
+                         de forma independiente al texto del enlace. -->
+                    <a href="#">Institucional <span class="arrow-down">&#9660;</span></a>
+                    <ul class="submenu">
+                        <li><a href="#">La Unidad Académica</a></li>
+                        <li><a href="#">Autoridades</a></li>
+                        <li><a href="#">Consejo de Unidad</a></li>
+                        <li><a href="#">Organización</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Carreras <span class="arrow-down">&#9660;</span></a>
+                    <ul class="submenu">
+                        <li><a href="#">Analista de Sistemas</a></li>
+                        <li><a href="#">Lic. en Enfermería</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Investigación</a></li>
+                <li><a href="#">Extensión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- =================================================================
+    FIN DEL ENCABEZADO (HEADER)
+    ================================================================== -->
+
+    <!-- =================================================================
+    INICIO DEL CONTENIDO PRINCIPAL (MAIN)
+    ================================================================== -->
+    <main>
+        <!-- INICIO SECCIÓN SLIDER -->
+        <section id="slider">
+            <div class="slides-conteint">
+                <!-- Imágenes con leyenda y número de slide. -->
+                <div class="slide fade">
+                    <!-- El atributo aria-hidden='true' indica a los lectores de pantalla 
+                         que ignoren este elemento, ya que es puramente decorativo y su 
+                         contenido (1/2) no aporta información relevante al contexto. -->
+                    <div class="numText" aria-hidden="true">1/2</div>
+                    <img src="img/img1.jpg" alt="Acto día de la Bandera">
+                    <div class="leyenda">Acto de día de la Bandera</div>
+                </div>
+                <div class="slide fade">
+                    <div class="numText" aria-hidden="true">2/2</div>
+                    <img src="img/img2.jpg" alt="Jornadas de cyt">
+                    <div class="leyenda">Jornadas de extensión universitaria</div>
+                </div>
+                <!-- Botones de anterior y siguiente. -->
+                <!-- Los atributos 'onclick' llaman a funciones de JavaScript directamente. -->
+                <a class="prev" onclick="desplazar(-1)">&lt;</a>
+                <a class="next" onclick="desplazar(1)">&gt;</a>
+            </div>
+            <div class="dots">
+                <span class="dot" onclick="mostrar(1)"></span>
+                <span class="dot" onclick="mostrar(2)"></span>
+            </div>
+        </section>
+        <!-- FIN SECCIÓN SLIDER -->
+
+        <!-- INICIO SECCIÓN NOTICIAS -->
+        <section id="noticias">
+            <h2>Noticias</h2>
+            <article class="noticia">
+                <h3>📆 Jornadas de ciencia y tecnología</h3>
+                <p class="fecha">03 de septiembre de 2025</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis eum, id cum molestiae amet ab accusantium laboriosam reiciendis eos ducimus consectetur tempore maxime asperiores dolor, illo molestias non! Blanditiis, inventore!</p>
+                <a href="#">Leer más...</a>
+            </article>
+            <article class="noticia">
+                <h3>💻 Nuevo equipamiento para laboratorio de ingeniería de software</h3>
+                <p class="fecha">31 de agosto de 2025</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem fuga velit culpa reprehenderit, suscipit et natus recusandae nobis iure? Pariatur, corrupti inventore. Nesciunt, dignissimos distinctio consequatur amet illo excepturi earum.</p>
+                <a href="#">Leer más...</a>
+            </article>
+        </section>
+        <!-- FIN SECCIÓN NOTICIAS -->
+        
+        <!-- INICIO SECCIÓN SERVICIOS -->
+        <section id="servicios">
+            <h2>Servicios institucionales</h2>
+            <div class="servicios-grid">
+                <div class="servicio">
+                    <img src="img/calendario.png" alt="calendario académico UNPA">
+                    <h3>Calendario académico</h3>
+                    <p>Fechas clave de cursado, exámenes y recesos.</p>
+                    <a href="#">Ver calendario</a>
+                </div>
+                <div class="servicio">
+                    <img src="img/aplicacion.png" alt="gestion de tramites varios">
+                    <h3>Gestión de trámites</h3>
+                    <p>Solicitudes, certificados, inscripciones y más.</p>
+                    <a href="#">Acceder al sistema</a>
+                </div>
+                <div class="servicio">
+                    <img src="img/mensajeria-instantanea.png" alt="mesa de entradas y archivo">
+                    <h3>Mesa de entradas</h3>
+                    <p>Recepción de documentación y atención administrativa.</p>
+                    <a href="#">Enviar consulta</a>
+                </div>
+                <div class="servicio">
+                    <img src="img/monitor.png" alt="digesto institucional para busqueda de normativas">
+                    <h3>Digesto institucional</h3>
+                    <p>Normativas, resoluciones y reglamentos vigentes.</p>
+                    <a href="#">Consultar documentos</a>
+                </div>
+            </div>
+        </section>
+        <!-- FIN SECCIÓN SERVICIOS -->
+    </main>
+    <!-- =================================================================
+    FIN DEL CONTENIDO PRINCIPAL (MAIN)
+    ================================================================== -->
+
+    <!-- =================================================================
+    INICIO DEL PIE DE PÁGINA (FOOTER)
+    ================================================================== -->
+    <footer>
+        <p>
+            <!-- La entidad HTML '&copy;' se utiliza para mostrar el símbolo de Copyright (©). -->
+            &copy; 2025 Unidad Académica Río Turbio - Universidad Nacional de la Patagonia Austral (UNPA)
+        </p>
+    </footer>
+    <!-- =================================================================
+    FIN DEL PIE DE PÁGINA (FOOTER)
+    ================================================================== -->
+</body>
+</html>

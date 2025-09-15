@@ -1,0 +1,450 @@
+/* ==========================================================================
+   IMPORTS Y VARIABLES GLOBALES
+   ========================================================================== */
+
+/* Importación de Fuentes
+ * Se importan las familias de fuentes de Google Fonts. Es una buena práctica
+ * agrupar todas las fuentes necesarias en una sola declaración @import para
+ * optimizar la carga.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&family=Ubuntu:wght@400;700&display=swap');
+
+/* Variables de Color
+ * Se definen variables globales en el selector :root (que representa la etiqueta <html>).
+ * Esto permite reutilizar los colores en todo el sitio y facilita los cambios
+ * de paleta de colores en el futuro, modificando solo estas líneas.
+ */
+:root {
+    --color-violeta: #9900D9;
+    --color-azul: #0D19D9;
+    --color-negro: #001919;
+    --color-blanco: #f9f9f9;
+}
+
+/* Se define la fuente principal para todo el documento. Si "Roboto" no carga,
+ * el navegador intentará con Arial, luego Helvetica, y finalmente una sans-serif genérica.
+ * Esta es una "pila de fuentes" (font stack) de respaldo.
+ */
+html {
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--color-blanco);
+    padding: 0;
+    margin: 0; /* Se resetea el margen por defecto del body. */
+    color: var(--color-negro);
+}
+
+/* ==========================================================================
+   ENCABEZADO (HEADER)
+   ========================================================================== */
+
+/* Contenedor Principal del Header
+ * Se utiliza Flexbox (display: flex) para alinear los elementos hijos:
+ * el logo (#logo-uart) y el menú de navegación (#menu-principal).
+ * - align-items: center -> Centra los hijos verticalmente.
+ * - justify-content: space-between -> Coloca el primer hijo al inicio y el último al final.
+ */
+header {
+    background-color: var(--color-violeta);
+    position: relative;
+    padding: 0rem 1rem;
+    color: var(--color-blanco);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo y Título */
+#logo-uart {
+    display: flex;
+    align-items: center;
+}
+
+#logo-uart img {
+    height: 6rem;
+    padding: 0.5rem 1rem 0.5rem 0;
+}
+
+#logo-uart h1 {
+    font-family: "Roboto", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 0.1rem;
+    font-size: 2rem;
+}
+
+/* Menú de Navegación Principal */
+
+/* Dentro del contenedor flex 'header', 'align-self' permite que este
+ * elemento específico anule la alineación vertical definida por 'align-items'.
+ * 'self-end' lo alinea con el borde inferior del header.
+ */
+#menu-principal {
+    align-self: self-end;   /* lo lleva al borde inferior del header */
+    margin-bottom: 0;  /* lo sube un poquito para que no quede pegado */
+    z-index: 999;
+}
+
+#menu-principal ul {
+    list-style: none; /* Quita los puntos de la lista. */
+    display: flex; /* Coloca los <li> en una fila horizontal. */
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+#menu-principal a {
+    color: var(--color-blanco);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 0.5rem;
+    display: block; /* Permite definir padding y otras propiedades de bloque. */
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo. */
+}
+
+#menu-principal a:hover {
+    color: white;
+    text-decoration: underline;
+    background-color: hsla(180, 100%, 5%, 0.5);
+    border-radius: 8px 8px 0 0;
+    outline: none;
+}
+
+#menu-principal li {
+    /* Clave para el submenú: Al establecer 'position: relative', cualquier hijo
+     * con 'position: absolute' (como .submenu) se posicionará en relación a este 'li'.
+     */
+    position: relative;
+}
+
+#menu-principal li:hover > a {
+    color: white;
+    text-decoration: none;
+    background-color: hsla(180, 100%, 5%, 0.5); /* Color semi-transparente al pasar el ratón. */
+    border-radius: 8px 8px 0 0;
+}
+
+.arrow-down {
+    margin-left: 0.1rem; /* Espacio entre el texto y la flecha */
+    font-size: 0.7rem; /* Ajusta el tamaño de la flecha */
+    vertical-align: middle; /* Alinea verticalmente con el texto */
+}
+
+/* Submenú Desplegable */
+#menu-principal .submenu {
+    display: block; /* Se mantiene como bloque para poder aplicar transformaciones. */
+    position: absolute; /* Posiciona el submenú fuera del flujo normal del documento. */
+    top: 100%; /* Lo coloca justo debajo de su elemento padre 'li'. */
+    left: 0;
+    background-color: hsla(180, 100%, 5%, 0.5);
+    border-radius: 0 8px 8px 8px;
+    min-width: 200px;
+    z-index: 1000; /* Asegura que el submenú aparezca por encima de otros elementos. */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+    /* --- TÉCNICA DE OCULTACIÓN/VISUALIZACIÓN ---
+     * Inicialmente, el submenú está oculto escalándolo a 0 en el eje Y y haciéndolo transparente.
+     * Se usa transform en lugar de display:none para permitir la transición.
+     */
+    transform: scaleY(0);
+    transform-origin: top; /* La transformación de escala se origina desde la parte superior. */
+    opacity: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+#menu-principal .submenu li {
+    width: 100%;
+}
+
+#menu-principal .submenu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--color-blanco);
+    text-decoration: none;
+}
+
+#menu-principal .submenu a:hover {
+    background-color: rgba(153, 0, 217, 0.5);
+    border-radius: 8px;
+}
+
+/* Cuando el cursor está sobre el 'li' padre, el submenú hijo (>) se hace visible. */
+#menu-principal li:hover > .submenu {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   CONTENIDO PRINCIPAL (MAIN)
+   ========================================================================== */
+
+
+/* Sección de Servicios */
+main {
+    padding: 2rem;
+}
+/*Presentación de noticias*/
+
+#slider {
+    padding: 1rem;
+}
+
+/* ==========================================================================
+   ESTILOS GENERALES Y RESET
+   ========================================================================== */
+
+/* El selector universal (*) se usa aquí para aplicar box-sizing a todos los elementos.
+ * 'border-box' hace que el padding y el borde se incluyan en el ancho y alto
+ * total del elemento, lo que facilita mucho el manejo de layouts.
+ */
+* {box-sizing: border-box;}
+
+.slides-conteint {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.slide {
+    display: none;
+    position: relative;
+    
+}
+
+.numText {
+    background-color: hsla(180, 100%, 5%, 0.5);
+    border-radius: 1rem;
+    color: yellow;
+    font-size: 0.7rem;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+}
+
+.leyenda {
+    background-color: hsla(180, 100%, 5%, 0.5);
+    border-radius: 3px;
+    color: yellow;
+    font-size: 0.9rem;
+    font-style: italic;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 15px;
+    text-align: center;
+    width: 100%;
+    pointer-events: none;
+}
+
+.next {
+    right: 0;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%; /* Lo posiciona a la mitad de la altura del contenedor. */
+    transform: translateY(-50%); /* Lo desplaza hacia arriba el 50% de SU PROPIA altura. */
+    text-decoration: none;
+    cursor: pointer;
+    width: auto;
+    padding: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    user-select: none;
+    transition: 0.6s ease;
+    border-radius: 0.8rem;
+}
+
+.prev:hover, .next:hover {
+    background-color: hsla(180, 100%, 5%, 0.5);
+    border-radius: 0.8rem;
+}
+
+.dots {
+    text-align: center;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.dot:hover {
+    background-color: var(--color-azul);
+}
+
+.active {
+    background-color: var(--color-violeta);   
+}
+
+.fade {
+    /*para versiones antiguas de navegador*/
+    /*-webkit-animation-name: fade;*/
+    -webkit-animation-duration: 1.5s;
+    /*para versiones actuales de navegador*/
+    /*animation-name: fade;*/
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: 0.4;};
+    to {opacity: 1};
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px); /* El elemento empieza desplazado a la izquierda. */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Termina en su posición original. */
+    }
+}
+
+@keyframes fadeRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px); /* El elemento empieza desplazado a la derecha. */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Termina en su posición original. */
+    }
+}
+
+.slide img {
+    width: 100%;
+    border-radius: 1rem;
+}
+
+/**/
+#noticias {
+    background-color: #eef2f7;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+#noticias h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: var(--color-violeta);
+}
+
+/* Se utiliza un borde izquierdo grueso y una sombra sutil para dar jerarquía
+ * visual y profundidad al contenedor de la noticia, separándolo del fondo. */
+.noticia {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border-left: 6px solid #36367f;
+    margin-bottom: 1.5rem;
+    box-shadow: 2px 2px 2px rgb(186, 186, 186);
+}
+
+.noticia h3 {
+    margin-top: 0;
+    color: #36367f;
+}
+
+.noticia a {
+    color: #36367f;
+    display: block;
+    text-align: right;
+    text-decoration: none;
+}
+
+.noticia a:hover {
+    color: var(--color-violeta);
+}
+
+.fecha {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+/*Sección servicios institucionales*/
+
+#servicios {
+    background-color: #eef2f7;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#servicios h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: var(--color-violeta);
+}
+
+.servicios-grid {
+    /* Se utiliza CSS Grid para crear un layout de columnas flexible y responsivo. */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.servicio {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid #dbe3ec;
+    /*border-left: 6px solid #36367f;*/
+    box-shadow: 2px 2px 2px rgb(186, 186, 186);
+}
+
+.servicio img {
+    height: 4rem;
+    margin-bottom: 1rem;
+}
+
+.servicio h3 {
+    margin-top: 0;
+    color: #36367f;
+    margin-bottom: 1rem;
+}
+
+.servicio p {
+    color: #666;
+    font-size: 1rem;
+}
+
+.servicio a {
+    color: #36367f;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.servicio a:hover {
+    color: var(--color-violeta);
+}
+
+footer {
+    background-color: black;
+    color: var(--color-blanco);
+    font-family: "Roboto", 'Courier New', Courier, monospace;
+    font-size: x-large;
+    text-align: center;
+    padding: 1rem 0;
+}
